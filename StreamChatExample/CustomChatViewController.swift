@@ -67,11 +67,14 @@ final class CustomChatViewController: ChatViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         setupNavbar()
     }
     
     private func setupNavbar() {
-        title = nil
         navigationItem.setRightBarButton(settinsBarButtonItem, animated: false)
         setProfileTitleView(name: "Equipo Diseño Multimedia")
     }
@@ -141,7 +144,7 @@ extension CustomChatViewController {
 extension CustomChatViewController {
     private func setProfileTitleView(name: String, image: UIImage? = nil) {
         guard let width = self.navigationController?.navigationBar.frame.width else { return }
-        let titleViewHalfHeight:CGFloat = 44.0 / 2
+        let titleViewHalfHeight: CGFloat = 44.0 / 2
         let paddingForImageView = titleViewHalfHeight - 25 / 2
         let paddingForLabel = titleViewHalfHeight - 20.5 / 2
         
