@@ -1,0 +1,6 @@
+framework module Pods_StreamChatExample {
+  umbrella header "Pods-StreamChatExample-umbrella.h"
+
+  export *
+  module * { export * }
+}
