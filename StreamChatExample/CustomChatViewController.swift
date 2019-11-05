@@ -72,8 +72,8 @@ final class CustomChatViewController: ChatViewController {
     
     private func setupNavbar() {
         title = nil
-        setProfileTitleView(name: "Equipo Diseño Multimedia")
         navigationItem.setRightBarButton(settinsBarButtonItem, animated: false)
+        setProfileTitleView(name: "Equipo Diseño Multimedia")
     }
     
     @objc private func settingsAction() {
