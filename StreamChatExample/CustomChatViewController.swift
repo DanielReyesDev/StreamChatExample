@@ -111,12 +111,41 @@ extension CustomChatViewController {
             make.height.equalTo(24)
             make.width.equalTo(24)
         }
+        
+        attachImageButton.rx.tap.subscribe{ [weak self] in
+            self?.showPicturePickerController()
+        }.disposed(by: disposeBag)
+        
         attachFileButton.snp.makeConstraints { make in
             make.centerY.equalTo(composerContainer.snp.centerY)
             make.right.equalTo(attachImageButton.snp.left).offset(-8)
             make.height.equalTo(24)
             make.width.equalTo(24)
         }
+        
+        attachFileButton.rx.tap.subscribe{ [weak self] in
+            self?.showDocumentPickerController()
+        }.disposed(by: disposeBag)
+    }
+    
+    private func showPicturePickerController() {
+        print(#function)
+    }
+    
+    // TODO:- didPickDocumentsAt extension is internal only for StreamChat framework
+    private func showDocumentPickerController() {
+        print(#function)
+//        let documentPickerViewController = UIDocumentPickerViewController(documentTypes: ["public.data"], in: .import)
+//        documentPickerViewController.allowsMultipleSelection = true
+//        documentPickerViewController.rx.didPickDocumentsAt
+//            .takeUntil(documentPickerViewController.rx.deallocated)
+//            .subscribe(onNext: { [weak self] in
+//                if let self = self, let channel = self.channelPresenter?.channel {
+//                    $0.forEach { url in self.composerView.addFileUploaderItem(UploaderItem(channel: channel, url: url)) }
+//                }
+//            })
+//            .disposed(by: disposeBag)
+//        present(documentPickerViewController, animated: true)
     }
     
     private func addCustomSendButton() {
