@@ -13,6 +13,7 @@
 		34C477322370CB04003B6B87 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 34C477302370CB04003B6B87 /* LaunchScreen.storyboard */; };
 		34C4773A2371C7D1003B6B87 /* CustomChannelsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34C477392371C7D1003B6B87 /* CustomChannelsViewController.swift */; };
 		34C4773C2371CAF5003B6B87 /* CustomChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34C4773B2371CAF5003B6B87 /* CustomChatViewController.swift */; };
+		34C4773E2371E63F003B6B87 /* CustomChatFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34C4773D2371E63F003B6B87 /* CustomChatFooterView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +24,7 @@
 		34C477332370CB04003B6B87 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		34C477392371C7D1003B6B87 /* CustomChannelsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomChannelsViewController.swift; sourceTree = "<group>"; };
 		34C4773B2371CAF5003B6B87 /* CustomChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomChatViewController.swift; sourceTree = "<group>"; };
+		34C4773D2371E63F003B6B87 /* CustomChatFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomChatFooterView.swift; sourceTree = "<group>"; };
 		36128CC214DA3CE10B985891 /* Pods-StreamChatExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StreamChatExample.debug.xcconfig"; path = "Target Support Files/Pods-StreamChatExample/Pods-StreamChatExample.debug.xcconfig"; sourceTree = "<group>"; };
 		61373B33B6B131FCF5589A5C /* Pods_StreamChatExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StreamChatExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9FCF1F328A58565118A2D85 /* Pods-StreamChatExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StreamChatExample.release.xcconfig"; path = "Target Support Files/Pods-StreamChatExample/Pods-StreamChatExample.release.xcconfig"; sourceTree = "<group>"; };
@@ -64,6 +66,7 @@
 				34C477272370CB02003B6B87 /* AppDelegate.swift */,
 				34C477392371C7D1003B6B87 /* CustomChannelsViewController.swift */,
 				34C4773B2371CAF5003B6B87 /* CustomChatViewController.swift */,
+				34C4773D2371E63F003B6B87 /* CustomChatFooterView.swift */,
 				34C4772E2370CB04003B6B87 /* Assets.xcassets */,
 				34C477302370CB04003B6B87 /* LaunchScreen.storyboard */,
 				34C477332370CB04003B6B87 /* Info.plist */,
@@ -205,6 +208,7 @@
 				34C4773A2371C7D1003B6B87 /* CustomChannelsViewController.swift in Sources */,
 				34C477282370CB02003B6B87 /* AppDelegate.swift in Sources */,
 				34C4773C2371CAF5003B6B87 /* CustomChatViewController.swift in Sources */,
+				34C4773E2371E63F003B6B87 /* CustomChatFooterView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
