@@ -20,6 +20,16 @@ final class CustomChatViewController: ChatViewController {
                                                             target: self,
                                                             action: #selector(settingsAction))
     
+    private let sendButton = UIButton(type: .custom)
+    private let attachImageButton = UIButton(type: .custom)
+    private let attachFileButton = UIButton(type: .custom)
+    
+    private lazy var composerContainer: UIView = {
+        let view = UIView()
+        view.backgroundColor = darkSkyBlue
+        return view
+    }()
+    
     init() {
         super.init(nibName: nil, bundle: nil)
         let channel = Channel(type: .messaging, id: "general")
@@ -39,11 +49,20 @@ final class CustomChatViewController: ChatViewController {
     }
     
     private func styleChat() {
-        composerView.style?.backgroundColor = darkSkyBlue
-        composerView.style?.textColor = .white
-        composerView.style?.placeholderTextColor = .white
-        composerView.isOpaque = true
         style.incomingMessage.backgroundColor = darkSkyBlue
+        setupComposerView()
+    }
+    
+    private func setupComposerView() {
+        style.composer.edgeInsets = .init(top: 8, left: 88, bottom: 8, right: 55)
+        style.composer.backgroundColor = .white
+        style.composer.textColor = .black
+        style.composer.height = 32
+        style.composer.cornerRadius = 32/2
+        style.composer.sendButtonVisibility = .none
+        addComponserContainer()
+        addCustomSendButton()
+        addCustomAttachmentButtons()
     }
     
     override func viewDidLoad() {
@@ -61,6 +80,65 @@ final class CustomChatViewController: ChatViewController {
         print(#function)
     }
     
+}
+
+extension CustomChatViewController {
+    private func addComponserContainer() {
+        view.insertSubview(composerContainer, belowSubview: composerView)
+        composerContainer.snp.makeConstraints { make in
+            make.top.equalTo(composerView.snp.top).offset(-8)
+            make.bottom.equalTo(composerView.snp.bottom).offset(8)
+            make.left.equalToSuperview()
+            make.right.equalToSuperview()
+        }
+        
+    }
+    
+    private func addCustomAttachmentButtons() {
+        attachImageButton.setImage(UIImage(named: "image")?.withRenderingMode(.alwaysTemplate), for: .normal)
+        attachFileButton.setImage(UIImage(named: "file")?.withRenderingMode(.alwaysTemplate), for: .normal)
+        attachImageButton.tintColor = .white
+        attachFileButton.tintColor = .white
+        
+        composerContainer.addSubview(attachImageButton)
+        composerContainer.addSubview(attachFileButton)
+        attachImageButton.snp.makeConstraints { make in
+            make.centerY.equalTo(composerContainer.snp.centerY)
+            make.right.equalTo(composerView.snp.left).offset(-16)
+            make.height.equalTo(24)
+            make.width.equalTo(24)
+        }
+        attachFileButton.snp.makeConstraints { make in
+            make.centerY.equalTo(composerContainer.snp.centerY)
+            make.right.equalTo(attachImageButton.snp.left).offset(-8)
+            make.height.equalTo(24)
+            make.width.equalTo(24)
+        }
+    }
+    
+    private func addCustomSendButton() {
+        sendButton.setImage(UIImage(named: "send")?.withRenderingMode(.alwaysTemplate), for: .normal)
+        sendButton.tintColor = .white
+        composerContainer.addSubview(sendButton)
+        
+        sendButton.snp.makeConstraints { make in
+            make.centerY.equalTo(composerContainer.snp.centerY)
+            make.right.equalTo(composerContainer.snp.right).offset(-15)
+        }
+        
+        // React on visibility state of the sendButton.
+        composerView.sendButtonVisibility
+            .subscribe(onNext: { [weak self] visibility in self?.sendButton.isEnabled = visibility.isEnabled })
+            .disposed(by: disposeBag)
+        
+        // Send a message.
+        sendButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in self?.send() })
+            .disposed(by: disposeBag)
+    }
+}
+
+extension CustomChatViewController {
     private func setProfileTitleView(name: String, image: UIImage? = nil) {
         guard let width = self.navigationController?.navigationBar.frame.width else { return }
         let titleViewHalfHeight:CGFloat = 44.0 / 2
@@ -86,5 +164,4 @@ final class CustomChatViewController: ChatViewController {
         
         self.navigationItem.titleView = titleView
     }
-    
 }
