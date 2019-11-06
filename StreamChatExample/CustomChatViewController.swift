@@ -20,9 +20,23 @@ final class CustomChatViewController: ChatViewController {
                                                             target: self,
                                                             action: #selector(settingsAction))
     
-    private let sendButton = UIButton(type: .custom)
-    private let attachImageButton = UIButton(type: .custom)
-    private let attachFileButton = UIButton(type: .custom)
+    private lazy var sendButton = UIButton(type: .custom)
+    
+    private lazy var attachImageButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setImage(UIImage(named: "image")?.withRenderingMode(.alwaysTemplate), for: .normal)
+        button.tintColor = .white
+        button.addTarget(self, action: #selector(attachImageAction), for: .touchUpInside)
+        return button
+    }()
+    
+    private lazy var attachFileButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setImage(UIImage(named: "file")?.withRenderingMode(.alwaysTemplate), for: .normal)
+        button.tintColor = .white
+        button.addTarget(self, action: #selector(attachFileAction), for: .touchUpInside)
+        return button
+    }()
     
     private lazy var composerContainer: UIView = {
         let view = UIView()
@@ -83,6 +97,14 @@ final class CustomChatViewController: ChatViewController {
         print(#function)
     }
     
+    @objc private func attachImageAction() {
+        showImagePicker(composerAddFileViewSourceType: .photo(.savedPhotosAlbum))
+    }
+    
+    @objc private func attachFileAction() {
+        showDocumentPickerController()
+    }
+    
 }
 
 extension CustomChatViewController {
@@ -98,13 +120,9 @@ extension CustomChatViewController {
     }
     
     private func addCustomAttachmentButtons() {
-        attachImageButton.setImage(UIImage(named: "image")?.withRenderingMode(.alwaysTemplate), for: .normal)
-        attachFileButton.setImage(UIImage(named: "file")?.withRenderingMode(.alwaysTemplate), for: .normal)
-        attachImageButton.tintColor = .white
-        attachFileButton.tintColor = .white
-        
         composerContainer.addSubview(attachImageButton)
         composerContainer.addSubview(attachFileButton)
+        
         attachImageButton.snp.makeConstraints { make in
             make.centerY.equalTo(composerContainer.snp.centerY)
             make.right.equalTo(composerView.snp.left).offset(-16)
@@ -112,40 +130,12 @@ extension CustomChatViewController {
             make.width.equalTo(24)
         }
         
-        attachImageButton.rx.tap.subscribe{ [weak self] in
-            self?.showPicturePickerController()
-        }.disposed(by: disposeBag)
-        
         attachFileButton.snp.makeConstraints { make in
             make.centerY.equalTo(composerContainer.snp.centerY)
             make.right.equalTo(attachImageButton.snp.left).offset(-8)
             make.height.equalTo(24)
             make.width.equalTo(24)
         }
-        
-        attachFileButton.rx.tap.subscribe{ [weak self] in
-            self?.showDocumentPickerController()
-        }.disposed(by: disposeBag)
-    }
-    
-    private func showPicturePickerController() {
-        print(#function)
-    }
-    
-    // TODO:- didPickDocumentsAt extension is internal only for StreamChat framework
-    private func showDocumentPickerController() {
-        print(#function)
-//        let documentPickerViewController = UIDocumentPickerViewController(documentTypes: ["public.data"], in: .import)
-//        documentPickerViewController.allowsMultipleSelection = true
-//        documentPickerViewController.rx.didPickDocumentsAt
-//            .takeUntil(documentPickerViewController.rx.deallocated)
-//            .subscribe(onNext: { [weak self] in
-//                if let self = self, let channel = self.channelPresenter?.channel {
-//                    $0.forEach { url in self.composerView.addFileUploaderItem(UploaderItem(channel: channel, url: url)) }
-//                }
-//            })
-//            .disposed(by: disposeBag)
-//        present(documentPickerViewController, animated: true)
     }
     
     private func addCustomSendButton() {
@@ -171,29 +161,38 @@ extension CustomChatViewController {
 }
 
 extension CustomChatViewController {
-    private func setProfileTitleView(name: String, image: UIImage? = nil) {
-        guard let width = self.navigationController?.navigationBar.frame.width else { return }
-        let titleViewHalfHeight: CGFloat = 44.0 / 2
-        let paddingForImageView = titleViewHalfHeight - 25 / 2
-        let paddingForLabel = titleViewHalfHeight - 20.5 / 2
+    private func showImagePicker(composerAddFileViewSourceType sourceType: ComposerAddFileView.SourceType) {
+        guard case .photo(let pickerSourceType) = sourceType else {
+            return
+        }
         
-        let titleLabel = UILabel(frame: CGRect(x: 25 + 8, y: paddingForLabel, width: 0, height: 0))
-        titleLabel.backgroundColor = .clear
-        titleLabel.textColor = .black
-        titleLabel.font = UIFont.boldSystemFont(ofSize: 17)
-        titleLabel.text = name
-        titleLabel.sizeToFit()
-        
-        let imageView = UIImageView(frame: CGRect(x: 0, y: paddingForImageView, width: 25, height: 25))
-        imageView.image = image
-        imageView.backgroundColor = .black
-        imageView.layer.cornerRadius = 25/2
-        imageView.clipsToBounds = true
-        
-        let titleView = UIView(frame: CGRect(x: 0, y: 0, width: width, height: 50))
-        titleView.addSubview(titleLabel)
-        titleView.addSubview(imageView)
-        
-        self.navigationItem.titleView = titleView
+        showImagePicker(sourceType: pickerSourceType) { [weak self] pickedImage, status in
+            guard status == .authorized else {
+                self?.showImpagePickerAuthorizationStatusAlert(status)
+                return
+            }
+            
+            guard let channel = self?.channelPresenter?.channel else {
+                return
+            }
+            
+            if let pickedImage = pickedImage, let uploaderItem = UploaderItem(channel: channel, pickedImage: pickedImage) {
+                self?.composerView.addImageUploaderItem(uploaderItem)
+            }
+        }
+    }
+    
+    private func showDocumentPickerController() {
+        let documentPickerViewController = UIDocumentPickerViewController(documentTypes: ["public.data"], in: .import)
+        documentPickerViewController.allowsMultipleSelection = true
+        documentPickerViewController.rx.didPickDocumentsAt
+            .takeUntil(documentPickerViewController.rx.deallocated)
+            .subscribe(onNext: { [weak self] in
+                if let self = self, let channel = self.channelPresenter?.channel {
+                    $0.forEach { url in self.composerView.addFileUploaderItem(UploaderItem(channel: channel, url: url)) }
+                }
+            })
+            .disposed(by: disposeBag)
+        present(documentPickerViewController, animated: true)
     }
 }

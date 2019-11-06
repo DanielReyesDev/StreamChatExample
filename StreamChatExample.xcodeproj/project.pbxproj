@@ -13,6 +13,12 @@
 		34C477322370CB04003B6B87 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 34C477302370CB04003B6B87 /* LaunchScreen.storyboard */; };
 		34C4773A2371C7D1003B6B87 /* CustomChannelsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34C477392371C7D1003B6B87 /* CustomChannelsViewController.swift */; };
 		34C4773C2371CAF5003B6B87 /* CustomChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34C4773B2371CAF5003B6B87 /* CustomChatViewController.swift */; };
+		34C4774623730618003B6B87 /* RxDocumentPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34C4774423730618003B6B87 /* RxDocumentPickerViewController.swift */; };
+		34C4774723730618003B6B87 /* UIViewController+ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34C4774523730618003B6B87 /* UIViewController+ImagePicker.swift */; };
+		34C4774923730682003B6B87 /* UploaderItem+UIImagePickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34C4774823730682003B6B87 /* UploaderItem+UIImagePickerController.swift */; };
+		34C4774B23730719003B6B87 /* Bundle+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34C4774A23730719003B6B87 /* Bundle+Extensions.swift */; };
+		34C4774D2373074D003B6B87 /* String+FileType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34C4774C2373074D003B6B87 /* String+FileType.swift */; };
+		34C4774F23730C19003B6B87 /* UIViewController+TitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34C4774E23730C19003B6B87 /* UIViewController+TitleView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +29,12 @@
 		34C477332370CB04003B6B87 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		34C477392371C7D1003B6B87 /* CustomChannelsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomChannelsViewController.swift; sourceTree = "<group>"; };
 		34C4773B2371CAF5003B6B87 /* CustomChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomChatViewController.swift; sourceTree = "<group>"; };
+		34C4774423730618003B6B87 /* RxDocumentPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RxDocumentPickerViewController.swift; sourceTree = "<group>"; };
+		34C4774523730618003B6B87 /* UIViewController+ImagePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+ImagePicker.swift"; sourceTree = "<group>"; };
+		34C4774823730682003B6B87 /* UploaderItem+UIImagePickerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UploaderItem+UIImagePickerController.swift"; sourceTree = "<group>"; };
+		34C4774A23730719003B6B87 /* Bundle+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Bundle+Extensions.swift"; sourceTree = "<group>"; };
+		34C4774C2373074D003B6B87 /* String+FileType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+FileType.swift"; sourceTree = "<group>"; };
+		34C4774E23730C19003B6B87 /* UIViewController+TitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+TitleView.swift"; sourceTree = "<group>"; };
 		36128CC214DA3CE10B985891 /* Pods-StreamChatExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StreamChatExample.debug.xcconfig"; path = "Target Support Files/Pods-StreamChatExample/Pods-StreamChatExample.debug.xcconfig"; sourceTree = "<group>"; };
 		61373B33B6B131FCF5589A5C /* Pods_StreamChatExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StreamChatExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9FCF1F328A58565118A2D85 /* Pods-StreamChatExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StreamChatExample.release.xcconfig"; path = "Target Support Files/Pods-StreamChatExample/Pods-StreamChatExample.release.xcconfig"; sourceTree = "<group>"; };
@@ -64,11 +76,25 @@
 				34C477272370CB02003B6B87 /* AppDelegate.swift */,
 				34C477392371C7D1003B6B87 /* CustomChannelsViewController.swift */,
 				34C4773B2371CAF5003B6B87 /* CustomChatViewController.swift */,
+				34C477432373058D003B6B87 /* Extensions */,
 				34C4772E2370CB04003B6B87 /* Assets.xcassets */,
 				34C477302370CB04003B6B87 /* LaunchScreen.storyboard */,
 				34C477332370CB04003B6B87 /* Info.plist */,
 			);
 			path = StreamChatExample;
+			sourceTree = "<group>";
+		};
+		34C477432373058D003B6B87 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				34C4774C2373074D003B6B87 /* String+FileType.swift */,
+				34C4774A23730719003B6B87 /* Bundle+Extensions.swift */,
+				34C4774823730682003B6B87 /* UploaderItem+UIImagePickerController.swift */,
+				34C4774423730618003B6B87 /* RxDocumentPickerViewController.swift */,
+				34C4774523730618003B6B87 /* UIViewController+ImagePicker.swift */,
+				34C4774E23730C19003B6B87 /* UIViewController+TitleView.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		C088AB4B4D909615601B2993 /* Pods */ = {
@@ -202,9 +228,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				34C4774723730618003B6B87 /* UIViewController+ImagePicker.swift in Sources */,
 				34C4773A2371C7D1003B6B87 /* CustomChannelsViewController.swift in Sources */,
+				34C4774F23730C19003B6B87 /* UIViewController+TitleView.swift in Sources */,
+				34C4774623730618003B6B87 /* RxDocumentPickerViewController.swift in Sources */,
 				34C477282370CB02003B6B87 /* AppDelegate.swift in Sources */,
+				34C4774D2373074D003B6B87 /* String+FileType.swift in Sources */,
+				34C4774923730682003B6B87 /* UploaderItem+UIImagePickerController.swift in Sources */,
 				34C4773C2371CAF5003B6B87 /* CustomChatViewController.swift in Sources */,
+				34C4774B23730719003B6B87 /* Bundle+Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
